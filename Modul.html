@@ -1,0 +1,88 @@
+<!doctype html>
+<html ng-app="peopleApp">
+	<head>
+		<meta charset="UTF-8" />
+		<title>AngularJS Filter by Year</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+		<style>
+			body {
+				font-family: sans-serif;
+				margin: 20px;
+			}
+			.search-box {
+				margin-bottom: 20px;
+				padding: 10px;
+				border: 1px solid #ddd;
+			}
+			ul {
+				list-style-type: decimal;
+			}
+			li {
+				margin: 5px 0;
+			}
+		</style>
+	</head>
+	<body ng-controller="PeopleController">
+		<h2>Список людей</h2>
+
+		<div class="search-box">
+			<label for="yearInput">Введіть рік народження для фільтрації:</label>
+			<input
+				type="text"
+				id="yearInput"
+				ng-model="searchYear"
+				placeholder="Наприклад: 2000"
+			/>
+		</div>
+
+		<div ng-if="searchYear">
+			<p>Результати для року: <strong>{{searchYear}}</strong></p>
+			<ul>
+				<li ng-repeat="person in people | filter:{birthDate: searchYear}">
+					{{person.lastName}} {{person.firstName}} — {{person.birthDate}}
+				</li>
+			</ul>
+		</div>
+
+		<p ng-if="!searchYear">Будь ласка, введіть рік, щоб побачити список.</p>
+
+		<script>
+			var app = angular.module('peopleApp', [])
+
+			app.controller('PeopleController', function ($scope) {
+				$scope.people = [
+					{ firstName: 'Іван', lastName: 'Петренко', birthDate: '15.05.1995' },
+					{
+						firstName: 'Олена',
+						lastName: 'Коваленко',
+						birthDate: '22.10.2000',
+					},
+					{
+						firstName: 'Андрій',
+						lastName: 'Сидоренко',
+						birthDate: '03.01.1995',
+					},
+					{ firstName: 'Марія', lastName: 'Бондар', birthDate: '12.12.2001' },
+					{
+						firstName: 'Дмитро',
+						lastName: 'Ткаченко',
+						birthDate: '30.07.2000',
+					},
+					{ firstName: 'Юлія', lastName: 'Шевченко', birthDate: '18.04.1998' },
+					{ firstName: 'Сергій', lastName: 'Лисенко', birthDate: '05.09.1995' },
+					{ firstName: 'Наталія', lastName: 'Мороз', birthDate: '25.12.2002' },
+					{
+						firstName: 'Віктор',
+						lastName: 'Павленко',
+						birthDate: '14.02.2000',
+					},
+					{
+						firstName: 'Тетяна',
+						lastName: 'Клименко',
+						birthDate: '09.06.1998',
+					},
+				]
+			})
+		</script>
+	</body>
+</html>

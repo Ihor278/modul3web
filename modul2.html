@@ -1,0 +1,101 @@
+<!doctype html>
+<html ng-app="birthdayApp">
+	<head>
+		<meta charset="UTF-8" />
+		<title>AngularJS: Фільтрація за роком 2000</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+		<style>
+			body {
+				font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+				margin: 30px;
+				line-height: 1.6;
+			}
+			h2 {
+				color: #2c3e50;
+				border-bottom: 2px solid #3498db;
+				padding-bottom: 10px;
+			}
+			.list-container {
+				background: #f9f9f9;
+				padding: 20px;
+				border-radius: 8px;
+				box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			}
+			ol {
+				padding-left: 20px;
+			}
+			li {
+				margin-bottom: 8px;
+				font-size: 1.1em;
+			}
+			.date {
+				color: #7f8c8d;
+				font-style: italic;
+			}
+			.highlight {
+				color: #e67e22;
+				font-weight: bold;
+			}
+		</style>
+	</head>
+	<body ng-controller="MainController">
+		<div class="list-container">
+			<h2>Список людей, народжених у 2000 році</h2>
+			<p><i>(Відсортовано за іменем в алфавітному порядку)</i></p>
+
+			<ol>
+				<li
+					ng-repeat="person in people | filter:{birthDate: '2000'} | orderBy:'firstName'"
+				>
+					<strong>{{person.firstName}} {{person.lastName}}</strong> —
+					<span class="date">{{person.birthDate}}</span>
+				</li>
+			</ol>
+
+			<div ng-if="(people | filter:{birthDate: '2000'}).length === 0">
+				<p>Людей 2000 року народження не знайдено.</p>
+			</div>
+		</div>
+
+		<script>
+			var app = angular.module('birthdayApp', [])
+
+			app.controller('MainController', function ($scope) {
+				$scope.people = [
+					{
+						firstName: 'Олександр',
+						lastName: 'Іванов',
+						birthDate: '2000-03-12',
+					},
+					{
+						firstName: 'Марія',
+						lastName: 'Коваленко',
+						birthDate: '1999-11-25',
+					},
+					{
+						firstName: 'Дмитро',
+						lastName: 'Сидоренко',
+						birthDate: '2000-07-08',
+					},
+					{ firstName: 'Анна', lastName: 'Мельник', birthDate: '2000-01-30' },
+					{
+						firstName: 'Віталій',
+						lastName: 'Петренко',
+						birthDate: '2001-05-14',
+					},
+					{ firstName: 'Юлія', lastName: 'Шевченко', birthDate: '2000-12-20' },
+					{ firstName: 'Артем', lastName: 'Бондар', birthDate: '2000-06-15' },
+					{
+						firstName: 'Світлана',
+						lastName: 'Ткаченко',
+						birthDate: '1998-09-02',
+					},
+					{ firstName: 'Ігор', lastName: 'Павленко', birthDate: '2000-10-10' },
+					{ firstName: 'Олена', lastName: 'Лисенко', birthDate: '2000-02-28' },
+					{ firstName: 'Андрій', lastName: 'Кушнір', birthDate: '1995-04-12' },
+					{ firstName: 'Тетяна', lastName: 'Мороз', birthDate: '2000-08-22' },
+				]
+			})
+		</script>
+	</body>
+</html>
